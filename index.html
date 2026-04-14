@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Natasya & Andi</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --maroon: #800000;
+            --dark-maroon: #4b0000;
+            --gold-accent: #D4AF37;
+            --soft-gold: #f4e4bc;
+            --ivory: #fffaf0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            /* Overlay Gelap di atas Foto Background agar Tulisan Terbaca */
+            --background-overlay: rgba(0, 0, 0, 0.5); 
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-maroon);
+            margin: 0; overflow-x: hidden; color: var(--ivory);
+            scroll-behavior: smooth;
+        }
+
+        /* --- ANIMATION BACKGROUND --- */
+        #animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10001; }
+        .petal { position: absolute; background: linear-gradient(135deg, var(--gold-accent), var(--soft-gold)); border-radius: 150% 0 150% 0; opacity: 0.8; animation: falling linear infinite; }
+        @keyframes falling { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+        /* --- COVER (SAMPUL DEPAN) --- */
+        #sampul-amplop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #4b0000 0%, #800000 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; transition: 1.2s cubic-bezier(0.7, 0, 0.3, 1); text-align: center;
+        }
+        .amplop-terbuka { transform: translateY(-100%); }
+
+        .border-cover {
+            border: 2px solid var(--gold-accent);
+            padding: 40px 20px;
+            width: 80%;
+            max-width: 400px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- BACKGROUND SLIDESHOW TERBARU --- */
+        .isi-undangan { 
+            position: relative; 
+            z-index: 10; 
+            background: none; 
+        }
+
+        .bg-slideshow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1; 
+            background-color: #000; /* Dasar hitam agar blur tidak bocor */
+        }
+
+        /* Lapis Belakang (Buram/Blur) */
+        .bg-slideshow div::before {
+            content: "";
+            position: absolute;
+            top: -10px; left: -10px; /* Sedikit dilebihkan agar blur rata */
+            width: calc(100% + 20px); height: calc(100% + 20px);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(20px) brightness(0.4); /* EFEK BLUR DAN GELAP */
+            z-index: 1;
+        }
+
+        /* Lapis Depan (Foto Utuh) */
+        /* Lapis Depan (Foto Utuh) - SEKARANG DIBUAT BLUR DAN AGAK GELAP */
+        .bg-slideshow div::after {
+            content: "";
+            position: absolute;
+            /* Atur sedikit padding agar efek blur tidak memotong pinggiran foto */
+            top: 2%; left: 2%; 
+            width: 96%; height: 96%;
+            background-size: contain; /* TAMPIL UTUH SELURUH BADAN */
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* --- INI PERUBAHANNYA: TAMBAHKAN FILTER BLUR DAN KECERAHAN --- */
+            filter: blur(0.8px) brightness(0.7); /* Angka 5px bisa diganti, makin besar makin blur. Angka 0.7 makin kecil makin gelap. */
+            
+            z-index: 2;
+        }
+
+        /* Efek Transisi Fading */
+        .bg-slideshow div {
+            position: absolute;
+            width: 100%; height: 100%;
+            opacity: 0;
+            animation: slideAnimation 20s infinite;
+        }
+
+        /* Atur Urutan dan File Foto untuk Kedua Lapis */
+        /* Foto 1 */
+        .bg-slideshow div:nth-child(1)::before { background-image: url('wed1.jpeg'); }
+        .bg-slideshow div:nth-child(1)::after { background-image: url('wed1.jpeg'); }
+        .bg-slideshow div:nth-child(1) { animation-delay: 0s; }
+
+        /* Foto 2 */
+        .bg-slideshow div:nth-child(2)::before { background-image: url('wed2.jpeg'); }
+        .bg-slideshow div:nth-child(2)::after { background-image: url('wed2.jpeg'); }
+        .bg-slideshow div:nth-child(2) { animation-delay: 5s; }
+
+        /* Foto 3 */
+        .bg-slideshow div:nth-child(3)::before { background-image: url('wed3.jpeg'); }
+        .bg-slideshow div:nth-child(3)::after { background-image: url('wed3.jpeg'); }
+        .bg-slideshow div:nth-child(3) { animation-delay: 10s; }
+
+        /* Foto 4 */
+        .bg-slideshow div:nth-child(4)::before { background-image: url('wed4.jpeg'); }
+        .bg-slideshow div:nth-child(4)::after { background-image: url('wed4.jpeg'); }
+        .bg-slideshow div:nth-child(4) { animation-delay: 15s; }
+
+        /* Animasi Transisi (Sama seperti sebelumnya) */
+        @keyframes slideAnimation {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            25% { opacity: 1; }
+            35% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        /* Membuat Bagian Welome dan Galeri Tetap Punya Warna Dasar sebagai Sekat */
+        section { width: 100%; padding: 60px 0; text-align: center; }
+        
+        .judul-script { font-family: 'Great Vibes', cursive; color: var(--gold-accent); font-size: 50px; margin: 10px 0; }
+        .nama-mempelai { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold-accent); letter-spacing: 2px; }
+        .foto-lingkaran { width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--ivory); object-fit: cover; margin-bottom: 20px; box-shadow: var(--shadow); }
+        
+        /* Card Teks di atas Foto Background harus punya Latar yang Sedikit Gelap agar Jelas */
+        .card-box { background: rgba(75, 0, 0, 0.6); border: 1px solid var(--gold-accent); padding: 40px 20px; margin: 20px auto; width: 85%; max-width: 450px; box-shadow: var(--shadow); }
+        
+        .btn-gold { background: var(--gold-accent); color: var(--dark-maroon); border: none; padding: 12px 30px; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; letter-spacing: 2px; margin-top: 20px; }
+        .music-control { position: fixed; bottom: 20px; right: 20px; background: var(--gold-accent); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; border: none; }
+        
+        @media (max-width: 600px) {
+            .judul-script { font-size: 40px !important; }
+            .card-box { width: 90%; padding: 20px 10px; }
+        }
+   </style>
+</head>
+<body>
+<div class="bg-slideshow">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div id="animation-container"></div>
+    <audio id="myAudio" loop><source src="audio1.mpeg" type="audio/mpeg"></audio>
+    <button class="music-control" onclick="togglePlay()" id="btnMusic" style="display: none;">🎶</button>
+
+    <div id="sampul-amplop">
+        <div class="border-cover" data-aos="zoom-in">
+            <div style="font-family: 'Cinzel'; letter-spacing: 4px; font-size: 14px;">THE WEDDING OF</div>
+            <div class="judul-script" style="font-size: 55px;">Natasya & Andi</div>
+            
+            <div style="margin-top: 30px;">
+                <p style="font-size: 12px; letter-spacing: 2px;">KEPADA YTH. <br> BAPAK/IBU/SAUDARA/I:</p>
+                <h2 style="font-family: 'Cinzel'; color: var(--gold-accent); margin: 10px 0;" id="nama-tamu">Nama Tamu Undangan</h2>
+                <p style="font-size: 10px; font-style: italic; opacity: 0.8; max-width: 250px; margin: 0 auto;">
+                    *Mohon maaf apabila ada kesalahan penulisan nama dan gelar
+                </p>
+            </div>
+
+            <button class="btn-gold" onclick="bukaUndangan()">Buka Undangan</button>
+        </div>
+    </div>
+
+    <div class="isi-undangan">
+        <section>
+            <div data-aos="fade-down">
+                <p style="letter-spacing: 5px; font-size: 14px; font-family: 'Cinzel';">THE WEDDING OF</p>
+                <div class="judul-script" style="font-size: 65px;">Natasya & Andi</div>
+                <div style="margin: 25px 0;">
+                    <p style="font-family: 'Cinzel'; font-size: 22px; color: var(--gold-accent); letter-spacing: 4px;">SAVE THE DATE</p>
+                    <p style="font-weight: bold; font-size: 18px;">JUMAT, 26 JUNI 2026</p>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;" data-aos="zoom-in">
+                <div><span id="days" style="display:block; font-size: 32px; font-weight: bold; color: var(--gold-accent);">0</span><small>HARI</small></div>
+                <div><span id="hours" style="display:block; font-size: 32px; font-weight: bold; color: var(--gold-accent);">0</span><small>JAM</small></div>
+                <div><span id="minutes" style="display:block; font-size: 32px; font-weight: bold; color: var(--gold-accent);">0</span><small>MENIT</small></div>
+                <div><span id="seconds" style="display:block; font-size: 32px; font-weight: bold; color: var(--gold-accent);">0</span><small>DETIK</small></div>
+            </div>
+        </section>
+
+        <section style="background: rgba(0,0,0,0.3);">
+            <div class="judul-script" data-aos="fade-up">Welcome to Our Wedding</div>
+            <div style="font-style: italic; max-width: 320px; margin: 20px auto; line-height: 1.8; color: var(--soft-gold);" data-aos="fade-up">
+                "Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia." <br> 
+                <strong>(Matius 19:6)</strong>
+            </div>
+            
+            <div data-aos="fade-right" style="margin-top: 40px;">
+                <img src="foto-laki.jpg" class="foto-lingkaran">
+                <div class="nama-mempelai">Markorius Andi, S.Ap</div>
+                <p style="font-size: 14px;">Putra kedua dari Bapak Indiarno <br> & Ibu Yusta Ahir</p>
+            </div>
+            <div class="judul-script" style="font-size: 35px; margin: 30px 0;">&</div>
+            <div data-aos="fade-left">
+                <img src="foto-perempuan.jpg" class="foto-lingkaran">
+                <div class="nama-mempelai">Natasya Geraeni Barango, S.Pt</div>
+                <p style="font-size: 14px;">Putri kedua dari Bapak Erik Suheri <br> & Ibu Yustina Muden</p>
+            </div>
+        </section>
+
+        <section style="background: rgba(0,0,0,0.35);">
+            <div class="judul-script" data-aos="fade-up">Acara Suci</div>
+            <div class="card-box" data-aos="flip-up">
+                <h3 style="color: var(--gold-accent); font-family: 'Cinzel';">Pemberkatan Nikah</h3>
+                <p>10.00 WIB - Selesai <br> Gereja Katolik Nama Gereja</p>
+                <hr style="border: 0.5px dashed var(--gold-accent); margin: 25px 0;">
+                <h3 style="color: var(--gold-accent); font-family: 'Cinzel';">Acara Adat</h3>
+                <p>13.00 WIB - Selesai <br> Gedung Serbaguna Ketapang</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="judul-script" data-aos="fade-up">Perjalanan Cinta Kami</div>
+            <div class="card-box" data-aos="fade-up" style="text-align: justify; font-size: 14px;">
+                <p><strong>Awal Pertemuan:</strong> Tuliskan kisah kalian di sini...</p>
+                <p><strong>Menuju Sah:</strong> Perjalanan indah hingga hari ini...</p>
+            </div>
+        </section>
+
+        <section style="background: rgba(0,0,0,0.4);">
+            <div class="judul-script" data-aos="fade-up">Galeri Foto</div>
+            <img src="wed4.jpeg" style="width: 85%; max-width: 400px; border: 5px solid white; margin-bottom: 10px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 85%; max-width: 400px; margin: 0 auto 10px;">
+                <img src="wed1.jpeg" style="width: 100%; height: 250px; object-fit: cover; border: 2px solid white;">
+                <img src="wed2.jpeg" style="width: 100%; height: 250px; object-fit: cover; border: 2px solid white;">
+            </div>
+            <img src="wed3.jpeg" style="width: 85%; max-width: 400px; border: 5px solid white;">
+        </section>
+
+        <section>
+            <div class="judul-script" data-aos="fade-up">Tanda Kasih</div>
+            
+            <div style="max-width: 350px; margin: 0 auto 25px; font-size: 13px; line-height: 1.6; opacity: 0.9;" data-aos="fade-up">
+                <p>Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih, dapat melalui saluran di bawah ini.</p>
+                <p style="font-style: italic;">Sebelumnya, doa dan kehadiran Anda sudah merupakan hadiah yang sangat berarti bagi kami. Tidak ada paksaan atau keharusan dalam bentuk apa pun.</p>
+            </div>
+
+            <div style="background: var(--ivory); color: var(--dark-maroon); padding: 25px; border-radius: 15px; display: inline-block; box-shadow: var(--shadow); width: 80%; max-width: 320px; margin-bottom: 15px;" data-aos="zoom-in">
+                <strong style="letter-spacing: 2px; font-size: 16px;">BANK MANDIRI</strong><br>
+                <span style="font-size: 20px; font-weight: bold; display: block; margin: 5px 0;">1460016386497</span>
+                <span style="font-size: 14px;">a/n MARKURIUS ANDI</span>
+            </div>
+
+            <div style="background: var(--ivory); color: var(--dark-maroon); padding: 25px; border-radius: 15px; display: inline-block; box-shadow: var(--shadow); width: 80%; max-width: 320px;" data-aos="zoom-in">
+                <strong style="letter-spacing: 2px; font-size: 16px;">BANK MANDIRI</strong><br>
+                <span style="font-size: 20px; font-weight: bold; display: block; margin: 5px 0;">1460019574594</span>
+                <span style="font-size: 14px;">a/n NATASYA GERAENI BARANGO</span>
+            </div>
+        </section>
+
+        <section style="background: rgba(0,0,0,0.45); padding: 50px 20px; text-align: center; color: white;">
+    <div style="font-style: italic; max-width: 320px; margin: 0 auto 40px;" data-aos="fade-up">
+        "Sehati sepikirlah kamu, dan hiduplah dalam damai sejahtera; maka Allah sumber kasih dan damai sejahtera akan menyertai kamu!" <br>
+        <strong>(2 Korintus 13:11)</strong>
+    </div>
+    
+    <div class="card-box" data-aos="fade-up" style="border: 1px solid var(--gold-accent); padding: 25px; border-radius: 15px; background: rgba(0,0,0,0.2); margin-bottom: 30px;">
+        <h3 style="font-family: 'Cinzel'; margin-bottom: 20px; color: var(--gold-accent);">Ucapan & Doa</h3>
+        
+        <input type="text" id="nama" placeholder="Nama Lengkap" style="width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 5px; border: 1px solid var(--gold-accent); background: none; color: white; box-sizing: border-box;">
+        
+        <textarea id="ucapan" placeholder="Tulis ucapan..." rows="4" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--gold-accent); background: none; color: white; box-sizing: border-box;"></textarea>
+        
+        <button onclick="kirimUcapan()" class="btn-gold" style="width: 100%; margin-top: 10px; cursor: pointer;">Kirim Ucapan</button>
+    </div>
+
+    <div id="daftarUcapan" style="max-height: 400px; overflow-y: auto; text-align: left; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+        <p style="text-align: center; font-size: 12px; opacity: 0.5;">Memuat ucapan...</p>
+    </div>
+
+    <p style="font-size: 10px; margin-top: 50px; opacity: 0.6;">CREATED BY TIA ANGERTI</p>
+</section>
+
+<script>
+    // FIX: Link sudah diperbaiki (tidak hhttps lagi)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyyQUU6vBJP9k89HMBLJ-qtF99ZbAnPOBjXXVNEGDcUCRZX6W9SR-5GXE4tnmp-_Ue18w/exec';
+
+    function kirimUcapan() {
+        const nama = document.getElementById('nama').value;
+        const ucapan = document.getElementById('ucapan').value;
+        const daftar = document.getElementById('daftarUcapan');
+        const btn = document.querySelector('.btn-gold');
+
+        if(nama === "" || ucapan === "") {
+            alert("Tia, isi dulu nama dan ucapannya ya!");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "Mengirim...";
+
+        fetch(scriptURL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            body: new URLSearchParams({'nama': nama, 'ucapan': ucapan})
+        })
+        .then(() => {
+            const kotakBaru = document.createElement('div');
+            kotakBaru.style = "background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid var(--gold-accent);";
+            kotakBaru.innerHTML = `<strong>${nama}</strong><br><small style="font-size: 12px; opacity: 0.8;">${ucapan}</small>`;
+            daftar.insertBefore(kotakBaru, daftar.firstChild);
+
+            document.getElementById('nama').value = "";
+            document.getElementById('ucapan').value = "";
+            btn.disabled = false;
+            btn.innerText = "Kirim Ucapan";
+            alert("Terima kasih! Ucapan kamu sudah terkirim.");
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            btn.disabled = false;
+            btn.innerText = "Kirim Ucapan";
+        });
+    }
+
+    // Ambil data otomatis saat web dibuka
+    window.addEventListener('load', function() {
+        const daftar = document.getElementById('daftarUcapan');
+        
+        fetch(scriptURL, { redirect: "follow" })
+            .then(res => res.json())
+            .then(data => {
+                daftar.innerHTML = ""; 
+                
+                if (!data || data.length === 0) {
+                    daftar.innerHTML = '<p style="text-align: center; font-size: 12px; opacity: 0.5;">Belum ada ucapan.</p>';
+                    return;
+                }
+
+                data.reverse().forEach(row => {
+                    if(row[0] && row[1]) {
+                        const kotak = document.createElement('div');
+                        kotak.style = "background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid var(--gold-accent);";
+                        kotak.innerHTML = `<strong>${row[0]}</strong><br><small style="font-size: 12px; opacity: 0.8;">${row[1]}</small>`;
+                        daftar.appendChild(kotak);
+                    }
+                });
+            })
+            .catch(err => {
+                console.error("Gagal memuat:", err);
+                daftar.innerHTML = '<p style="text-align: center; font-size: 12px; opacity: 0.5;">Gagal memuat ucapan. Refresh atau cek koneksi.</p>';
+            });
+    });
+</script>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        const container = document.getElementById('animation-container');
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 10 + 10 + 'px';
+            petal.style.width = size; petal.style.height = (parseInt(size)*1.5)+'px';
+            petal.style.animationDuration = Math.random() * 5 + 7 + 's';
+            container.appendChild(petal);
+            setTimeout(() => petal.remove(), 10000);
+        }
+        setInterval(createPetal, 450);
+
+        function bukaUndangan() {
+            document.getElementById("sampul-amplop").classList.add("amplop-terbuka");
+            document.body.style.overflow = "auto";
+            document.getElementById("btnMusic").style.display = "flex";
+            document.getElementById("myAudio").play();
+        }
+
+        function togglePlay() {
+            var audio = document.getElementById("myAudio");
+            audio.paused ? audio.play() : audio.pause();
+        }
+
+        // PERBAIKAN DI SINI: Bulan diganti jadi June (Bahasa Inggris)
+        var targetDate = new Date("June 26, 2026 10:00:00").getTime();
+        
+        setInterval(function() {
+            var now = new Date().getTime();
+            var distance = targetDate - now;
+            
+            if (distance < 0) {
+                // Jika waktu sudah lewat
+                document.getElementById("days").innerText = "0";
+                document.getElementById("hours").innerText = "0";
+                document.getElementById("minutes").innerText = "0";
+                document.getElementById("seconds").innerText = "0";
+                return;
+            }
+            
+            document.getElementById("days").innerText = Math.floor(distance / 86400000);
+            document.getElementById("hours").innerText = Math.floor((distance % 86400000) / 3600000);
+            document.getElementById("minutes").innerText = Math.floor((distance % 3600000) / 60000);
+            document.getElementById("seconds").innerText = Math.floor((distance % 60000) / 1000);
+        }, 1000);
+
+        // Fungsi untuk mengambil nama tamu dari link (URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        const namaTamu = urlParams.get('to');
+
+        // Jika ada nama di link, ganti tulisan "Nama Tamu Undangan"
+        if (namaTamu) {
+            // Mengganti tanda plus (+) jadi spasi agar rapi
+            document.getElementById('nama-tamu').innerText = namaTamu.replace(/\+/g, ' ');
+        }
+
+        // Fungsi otomatis ambil data dari Google Sheets saat web dibuka
+window.addEventListener('load', function() {
+    const daftar = document.getElementById('daftarUcapan');
+    
+    // TAMBAHKAN: redirect: "follow" agar Google Apps Script tidak error saat memindahkan data
+    fetch(scriptURL, { redirect: "follow" })
+        .then(res => {
+            if (!res.ok) throw new Error('Network response was not ok');
+            return res.json();
+        })
+        .then(data => {
+            daftar.innerHTML = ""; // Hapus tulisan "Memuat ucapan..."
+            
+            if (!data || data.length === 0) {
+                daftar.innerHTML = '<p style="text-align: center; font-size: 12px; opacity: 0.5;">Belum ada ucapan.</p>';
+                return;
+            }
+
+            // Tampilkan data: data.reverse() supaya yang terbaru di atas
+            data.reverse().forEach(row => {
+                if(row[0] && row[1]) { // Pastikan kolom nama & ucapan tidak kosong
+                    const kotak = document.createElement('div');
+                    kotak.style = "background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid var(--gold-accent);";
+                    kotak.innerHTML = `<strong>${row[0]}</strong><br><small style="font-size: 12px; opacity: 0.8;">${row[1]}</small>`;
+                    daftar.appendChild(kotak);
+                }
+            });
+        })
+        .catch(err => {
+            console.error("Gagal memuat:", err);
+            // Tips: Jika masih gagal, pastikan link scriptURL sudah di-deploy sebagai "Anyone"
+            daftar.innerHTML = '<p style="text-align: center; font-size: 12px; opacity: 0.5;">Gagal memuat ucapan. Pastikan Deployment Apps Script sudah benar.</p>';
+        });
+});
+    </script>
+</body>
+</html>
