@@ -27,6 +27,21 @@
             scroll-behavior: smooth;
         }
 
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden; /* Mengunci agar tidak bisa geser kiri-kanan */
+            position: relative;
+        }
+
+        /* Pastikan section tidak meluap */
+        section {
+            width: 100%;
+            padding: 60px 0;
+            text-align: center;
+            box-sizing: border-box; /* Sangat penting supaya padding tidak menambah lebar */
+            overflow: hidden;
+        }
+
         /* --- ANIMATION BACKGROUND --- */
         #animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10001; }
         .petal { position: absolute; background: linear-gradient(135deg, var(--gold-accent), var(--soft-gold)); border-radius: 150% 0 150% 0; opacity: 0.8; animation: falling linear infinite; }
@@ -64,34 +79,29 @@
             background-color: #000; /* Dasar hitam agar blur tidak bocor */
         }
 
-        /* Lapis Belakang (Buram/Blur) */
-        .bg-slideshow div::before {
-            content: "";
-            position: absolute;
-            top: -10px; left: -10px; /* Sedikit dilebihkan agar blur rata */
-            width: calc(100% + 20px); height: calc(100% + 20px);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: blur(20px) brightness(0.4); /* EFEK BLUR DAN GELAP */
-            z-index: 1;
-        }
+       /* Update bagian ini di CSS kamu */
+.bg-slideshow div::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%; /* Ubah jadi 100% pas */
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.4);
+    z-index: 1;
+}
 
-        /* Lapis Depan (Foto Utuh) */
-        /* Lapis Depan (Foto Utuh) - SEKARANG DIBUAT BLUR DAN AGAK GELAP */
-        .bg-slideshow div::after {
-            content: "";
-            position: absolute;
-            /* Atur sedikit padding agar efek blur tidak memotong pinggiran foto */
-            top: 2%; left: 2%;
-            width: 96%; height: 96%;
-            background-size: contain; /* TAMPIL UTUH SELURUH BADAN */
-            background-position: center;
-            background-repeat: no-repeat;
-            /* --- INI PERUBAHANNYA: TAMBAHKAN FILTER BLUR DAN KECERAHAN --- */
-            filter: blur(0.8px) brightness(0.7); /* Angka 5px bisa diganti, makin besar makin blur. Angka 0.7 makin kecil makin gelap. */
-            z-index: 2;
-        }
+.bg-slideshow div::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%; /* Ubah jadi 100% pas */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(0.8px) brightness(0.7);
+    z-index: 2;
+}
         /* Efek Transisi Fading */
         .bg-slideshow div {
             position: absolute;
@@ -144,9 +154,17 @@
         .music-control { position: fixed; bottom: 20px; right: 20px; background: var(--gold-accent); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; border: none; }
         
         @media (max-width: 600px) {
-            .judul-script { font-size: 40px !important; }
-            .card-box { width: 90%; padding: 20px 10px; }
-        }
+    .judul-script { font-size: 40px !important; }
+    .card-box { 
+        width: 85%; /* Kurangi sedikit lebarnya agar aman */
+        padding: 20px; 
+        box-sizing: border-box;
+    }
+    /* Pastikan input ucapan tidak meluap */
+    input, textarea {
+        max-width: 100%;
+    }
+}
    </style>
 </head>
 <body>
