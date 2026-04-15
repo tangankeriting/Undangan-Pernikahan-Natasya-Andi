@@ -108,61 +108,38 @@
             position: absolute;
             width: 100%; height: 100%;
             opacity: 0;
-            /* DURASI DIUBAH: 11 foto x 5 detik = 55s */
-            animation: slideAnimation 55s infinite; 
+            animation: slideAnimation 40s infinite; /* GANTI KE 40s */
         }
 
-        /* Tips: Pastikan background-image tetap ada di bawah masing-masing nth-child ya */
+       /* --- URUTAN ANTREAN FOTO (Wajib Urut Kelipatan 5) --- */
+.bg-slideshow div:nth-child(1) { animation-delay: 0s; }
+.bg-slideshow div:nth-child(2) { animation-delay: 5s; }
+.bg-slideshow div:nth-child(3) { animation-delay: 10s; }
+.bg-slideshow div:nth-child(4) { animation-delay: 15s; }
+.bg-slideshow div:nth-child(5) { animation-delay: 20s; }
+.bg-slideshow div:nth-child(6) { animation-delay: 25s; }
+.bg-slideshow div:nth-child(7) { animation-delay: 30s; }
+.bg-slideshow div:nth-child(8) { animation-delay: 35s; }
 
-        /* Atur Urutan dan File Foto untuk Kedua Lapis */
-        /* Foto 1 */
-        .bg-slideshow div:nth-child(1)::before { background-image: url('wed1.jpeg'); }
-        .bg-slideshow div:nth-child(1)::after { background-image: url('wed1.jpeg'); }
-        .bg-slideshow div:nth-child(1) { animation-delay: 0s; }
+/* --- DAFTAR FILE FOTO (Hapus semua baris delay di sini) --- */
+.bg-slideshow div:nth-child(1)::before, .bg-slideshow div:nth-child(1)::after { background-image: url('wed1.jpeg'); }
+.bg-slideshow div:nth-child(2)::before, .bg-slideshow div:nth-child(2)::after { background-image: url('wed2.jpeg'); }
+.bg-slideshow div:nth-child(3)::before, .bg-slideshow div:nth-child(3)::after { background-image: url('wed3.jpeg'); }
+.bg-slideshow div:nth-child(4)::before, .bg-slideshow div:nth-child(4)::after { background-image: url('wed4.jpeg'); }
+.bg-slideshow div:nth-child(5)::before, .bg-slideshow div:nth-child(5)::after { background-image: url('wed5.jpeg'); }
+.bg-slideshow div:nth-child(6)::before, .bg-slideshow div:nth-child(6)::after { background-image: url('wed6.jpg'); }
+.bg-slideshow div:nth-child(7)::before, .bg-slideshow div:nth-child(7)::after { background-image: url('wed7.jpg'); }
+.bg-slideshow div:nth-child(8)::before, .bg-slideshow div:nth-child(8)::after { background-image: url('wed8.jpg'); }
 
-        /* Foto 2 */
-        .bg-slideshow div:nth-child(2)::before { background-image: url('wed2.jpeg'); }
-        .bg-slideshow div:nth-child(2)::after { background-image: url('wed2.jpeg'); }
-        .bg-slideshow div:nth-child(2) { animation-delay: 5s; }
-
-        /* Foto 3 */
-        .bg-slideshow div:nth-child(3)::before { background-image: url('wed3.jpeg'); }
-        .bg-slideshow div:nth-child(3)::after { background-image: url('wed3.jpeg'); }
-        .bg-slideshow div:nth-child(3) { animation-delay: 10s; }
-
-        /* Foto 4 */
-        .bg-slideshow div:nth-child(4)::before { background-image: url('wed4.jpeg'); }
-        .bg-slideshow div:nth-child(4)::after { background-image: url('wed4.jpeg'); }
-        .bg-slideshow div:nth-child(4) { animation-delay: 15s; }
-
-        /* Foto 5 */
-        .bg-slideshow div:nth-child(5)::before { background-image: url('wed5.jpeg'); }
-        .bg-slideshow div:nth-child(5)::after { background-image: url('wed5.jpeg'); }
-        .bg-slideshow div:nth-child(5) { animation-delay: 20s; }
-
-        /* Foto 6 */
-        .bg-slideshow div:nth-child(6)::before { background-image: url('wed6.jpeg'); }
-        .bg-slideshow div:nth-child(6)::after { background-image: url('wed6.jpeg'); }
-        .bg-slideshow div:nth-child(6) { animation-delay: 25s; }
-
-        /* Foto 7 */
-        .bg-slideshow div:nth-child(7)::before { background-image: url('wed7.jpg'); }
-        .bg-slideshow div:nth-child(7)::after { background-image: url('wed7.jpg'); }
-        .bg-slideshow div:nth-child(7) { animation-delay: 30s; }
-
-        /* Foto 8 */
-        .bg-slideshow div:nth-child(8)::before { background-image: url('wed8.jpg'); }
-        .bg-slideshow div:nth-child(8)::after { background-image: url('wed8.jpg'); }
-        .bg-slideshow div:nth-child(8) { animation-delay: 35s; }
 
         /* --- PERBAIKAN PEMBAGIAN WAKTU (KEYFRAMES) --- */
         @keyframes slideAnimation {
-            0% { opacity: 0; }
-            2% { opacity: 1; }   /* Foto muncul */
-            11% { opacity: 1; }  /* Foto diam (tampil) */
-            13% { opacity: 0; }  /* Foto menghilang */
-            100% { opacity: 0; }
-        }
+    0% { opacity: 0; }
+    3% { opacity: 1; }   /* Muncul (fade in) */
+    12.5% { opacity: 1; } /* Tampil (durasi tampil lebih pas untuk 8 foto) */
+    15.5% { opacity: 0; } /* Menghilang (fade out) */
+    100% { opacity: 0; }
+}
 
         /* Membuat Bagian Welome dan Galeri Tetap Punya Warna Dasar sebagai Sekat */
         section { width: 100%; padding: 60px 0; text-align: center; }
