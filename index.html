@@ -60,7 +60,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -1; 
+            z-index: -1;
             background-color: #000; /* Dasar hitam agar blur tidak bocor */
         }
 
@@ -83,18 +83,15 @@
             content: "";
             position: absolute;
             /* Atur sedikit padding agar efek blur tidak memotong pinggiran foto */
-            top: 2%; left: 2%; 
+            top: 2%; left: 2%;
             width: 96%; height: 96%;
             background-size: contain; /* TAMPIL UTUH SELURUH BADAN */
             background-position: center;
             background-repeat: no-repeat;
-            
             /* --- INI PERUBAHANNYA: TAMBAHKAN FILTER BLUR DAN KECERAHAN --- */
             filter: blur(0.8px) brightness(0.7); /* Angka 5px bisa diganti, makin besar makin blur. Angka 0.7 makin kecil makin gelap. */
-            
             z-index: 2;
         }
-
         /* Efek Transisi Fading */
         .bg-slideshow div {
             position: absolute;
@@ -188,7 +185,7 @@
                 <div class="judul-script" style="font-size: 65px;">Natasya & Andi</div>
                 <div style="margin: 25px 0;">
                     <p style="font-family: 'Cinzel'; font-size: 22px; color: var(--gold-accent); letter-spacing: 4px;">SAVE THE DATE</p>
-                    <p style="font-weight: bold; font-size: 18px;">JUMAT, 26 JUNI 2026</p>
+                    <p style="font-weight: bold; font-size: 18px;">SABTU, 27 JUNI 2026</p>
                 </div>
             </div>
 
@@ -224,18 +221,23 @@
             <div class="judul-script" data-aos="fade-up">Acara Suci</div>
             <div class="card-box" data-aos="flip-up">
                 <h3 style="color: var(--gold-accent); font-family: 'Cinzel';">Pemberkatan Nikah</h3>
-                <p>10.00 WIB - Selesai <br> Gereja Katolik Nama Gereja</p>
+                <p> Gereja Santa Maria rosario suci tapang Sambas, Desa tapang Semadak, kecamatan Sekadau Hilir, Kabupaten Sekadau, Kalimatan Barat <br> 10:00 WIB - Selesai</p>
                 <hr style="border: 0.5px dashed var(--gold-accent); margin: 25px 0;">
                 <h3 style="color: var(--gold-accent); font-family: 'Cinzel';">Acara Adat</h3>
-                <p>13.00 WIB - Selesai <br> Gedung Serbaguna Ketapang</p>
+                <p> Kediaman mempelai pria <br> 10:00 WIB - Selesai</p>
             </div>
         </section>
 
         <section>
             <div class="judul-script" data-aos="fade-up">Perjalanan Cinta Kami</div>
-            <div class="card-box" data-aos="fade-up" style="text-align: justify; font-size: 14px;">
-                <p><strong>Awal Pertemuan:</strong> Tuliskan kisah kalian di sini...</p>
-                <p><strong>Menuju Sah:</strong> Perjalanan indah hingga hari ini...</p>
+            <div class="card-box" data-aos="fade-up" style="text-align: justify; font-size: 14px; line-height: 1.8;">
+                <p><strong>Juli 2024:</strong> Pertemuan pertama yang berkesan. Meski tanpa status berpacaran, kami memutuskan untuk saling berkomitmen satu sama lain.</p>
+                
+                <p><strong>September 2025:</strong> Setelah menjalani masa pengenalan, kami memantapkan hati untuk melangkah ke jenjang yang lebih serius.</p>
+                
+                <p><strong>November 2025:</strong> Pertemuan kedua belah pihak keluarga diadakan untuk menentukan hari bahagia serta tempat pertunangan kami.</p>
+                
+                <p><strong>Juni 2026:</strong> Dengan berkat Tuhan, kami memutuskan untuk mengikat janji suci dan bersatu di hadapan Altar Kudus-Nya.</p>
             </div>
         </section>
 
@@ -395,7 +397,7 @@
         }
 
         // PERBAIKAN DI SINI: Bulan diganti jadi June (Bahasa Inggris)
-        var targetDate = new Date("June 26, 2026 10:00:00").getTime();
+        var targetDate = new Date("June 27, 2026 10:00:00").getTime();
         
         setInterval(function() {
             var now = new Date().getTime();
