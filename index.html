@@ -147,7 +147,6 @@
         
         .judul-script { font-family: 'Great Vibes', cursive; color: var(--gold-accent); font-size: 50px; margin: 10px 0; }
         .nama-mempelai { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold-accent); letter-spacing: 2px; }
-        .foto-lingkaran { width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--ivory); object-fit: cover; margin-bottom: 20px; box-shadow: var(--shadow); }
         
         /* Card Teks di atas Foto Background harus punya Latar yang Sedikit Gelap agar Jelas */
         .card-box { background: rgba(75, 0, 0, 0.6); border: 1px solid var(--gold-accent); padding: 40px 20px; margin: 20px auto; width: 85%; max-width: 450px; box-shadow: var(--shadow); }
@@ -166,6 +165,38 @@
     input, textarea {
         max-width: 100%;
     }
+}
+
+/* Styling dasar untuk lingkaran (pengganti .foto-lingkaran) */
+.lingkaran-custom {
+    width: 200px; /* Ukuran lingkaran sedikit diperbesar biar gagah */
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid var(--ivory); /* Bingkai putih tebal */
+    box-shadow: var(--shadow);
+    margin: 0 auto 20px; /* Tengahkan lingkaran dan kasih jarak bawah */
+    
+    /* Trik utama: jadikan foto sebagai background */
+    background-size: cover; /* Foto akan memenuhi lingkaran tanpa gepeng */
+    background-repeat: no-repeat;
+}
+
+/* --- ATUR FOTO PRIA (ppl.jpeg) --- */
+#foto-pria {
+    background-image: url('ppa.jpeg');
+    
+    /* GANTI ANGKA INI BUAT GESER: (Kiri-Kanan Atas-Bawah) */
+    /* Contoh: 50% 20% artinya tengah horizontal, agak ke atas vertikal */
+    background-position: 0% 50%; 
+}
+
+/* --- ATUR FOTO WANITA (ppt.jpeg) --- */
+#foto-wanita {
+    background-image: url('ppt.jpeg');
+    
+    /* GANTI ANGKA INI BUAT GESER: (Kiri-Kanan Atas-Bawah) */
+    /* Contoh: 60% 50% artinya agak ke kanan horizontal, tengah vertikal */
+    background-position: 0% 50%; 
 }
    </style>
 </head>
@@ -221,31 +252,37 @@
             </div>
         </section>
 
-        <section style="background: rgba(0,0,0,0.3);">
-            <div class="judul-script" data-aos="fade-up">Welcome to Our Wedding</div>
-            <div style="font-style: italic; max-width: 320px; margin: 20px auto; line-height: 1.8; color: var(--soft-gold);" data-aos="fade-up">
-                "Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia." <br> 
-                <strong>(Matius 19:6)</strong>
-            </div>
-            
-            <div data-aos="fade-right" style="margin-top: 40px;">
-                <img src="foto-laki.jpg" class="foto-lingkaran">
-                <div class="nama-mempelai">Markorius Andi, S.Ap</div>
-                <p style="font-size: 14px;">Putra kedua dari Bapak Indiarno <br> & Ibu Yusta Ahir</p>
-            </div>
-           <div data-aos="fade-left">
-                <img src="ppw.jpeg" class="foto-lingkaran">
-                <div class="nama-mempelai">Natasya Geraeni Barango, S.Pt</div>
-                <p style="font-size: 14px;">Putri kedua dari Bapak Erik Suheri <br> & Ibu Yustina Muden</p>
-            </div>
-        </section>
+        <section style="background: rgba(0,0,0,0.3); padding: 50px 0;">
+    <div class="judul-script" data-aos="fade-up" style="font-size: 42px; line-height: 1.2; margin-bottom: 10px;">
+        Selamat Datang di <br> Hari Bahagia Kami
+    </div>
+    
+    <div style="font-style: italic; max-width: 300px; margin: 0 auto 30px; line-height: 1.6; color: var(--soft-gold); font-size: 13px;" data-aos="fade-up">
+        "Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia." <br> 
+        <strong style="display: block; margin-top: 5px;">(Matius 19:6)</strong>
+    </div>
+    
+    <div data-aos="fade-right" style="margin-top: 20px;">
+        <div id="foto-pria" class="lingkaran-custom"></div> 
+        <div class="nama-mempelai" style="margin-top: 15px;">Markorius Andi, S.Ap</div>
+        <p style="font-size: 13px; color: var(--ivory); line-height: 1.5;">Putra kedua dari Bapak Indiarno <br> & Ibu Yusta Ahir</p>
+    </div>
+
+    <div data-aos="zoom-in" class="judul-script" style="font-size: 30px; margin: 15px 0; color: var(--gold-accent);">&</div>
+
+    <div data-aos="fade-left">
+        <div id="foto-wanita" class="lingkaran-custom"></div>
+        <div class="nama-mempelai" style="margin-top: 15px;">Natasya Geraeni Barango, S.Pt</div>
+        <p style="font-size: 13px; color: var(--ivory); line-height: 1.5;">Putri kedua dari Bapak Erik Suheri <br> & Ibu Yustina Muden</p>
+    </div>
+</section>
 
         <section style="background: rgba(0,0,0,0.35);">
     <div class="judul-script" data-aos="fade-up">Rangkaian Acara</div>
     <div class="card-box" data-aos="flip-up">
         
         <h3 style="color: var(--gold-accent); font-family: 'Cinzel'; margin-bottom: 5px;">Sakramen Perkawinan</h3>
-        <p style="font-weight: bold; color: var(--soft-gold); margin-bottom: 10px;">Sabtu, 27 Juni 2026 <br> 10:00 WIB - Selesai</p>
+        <p style="font-weight: bold; color: var(--soft-gold); margin-bottom: 10px;">Sabtu, 27 Juni 2026 <br> 09:00 WIB - Selesai</p>
         <p style="font-size: 13px; line-height: 1.6;">Gereja Santa Maria Rosario Suci Tapang Sambas, Desa Tapang Semadak, Kec. Sekadau Hilir, Kab. Sekadau</p>
         
         <a href="https://maps.google.com/?cid=18354499470997255600&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank">
@@ -256,7 +293,7 @@
 
         <h3 style="color: var(--gold-accent); font-family: 'Cinzel'; margin-bottom: 5px;">Acara Adat</h3>
         <p style="font-weight: bold; color: var(--soft-gold); margin-bottom: 10px;">Minggu, 28 Juni 2026 <br> 10:00 WIB - Selesai</p>
-        <p style="font-size: 13px; line-height: 1.6;">Rumah kediaman mempelai pria, bapak Indiarno, Jalan raya trans Kalimantan, Dusun Tapang Sambas,  Desa Tapang Semadak, Kabupaten Sekadau</p>
+        <p style="font-size: 13px; line-height: 1.6;">Bertempat di, Rumah kediaman mempelai pria, bapak Indiarno, Dusun Tapang Sambas,  Desa Tapang Semadak, Kabupaten Sekadau</p>
         
         <a href="https://maps.app.goo.gl/L3nyAk3vERGv1nne9" target="_blank">
             <button class="btn-gold" style="padding: 8px 15px; font-size: 11px; margin-top: 10px;">📍 Lihat Lokasi Rumah</button>
@@ -274,6 +311,8 @@
                 
                 <p><strong>November 2025:</strong> Pertemuan kedua belah pihak keluarga diadakan untuk menentukan hari bahagia serta tempat pertunangan kami.</p>
                 
+                <p><strong>Januari 2026:</strong> Awal tahun yang penuh makna. Di hadapan keluarga besar, kami mengikat janji dalam sebuah pertunangan yang suci sebagai bukti keseriusan cinta kami.</p>
+
                 <p><strong>Juni 2026:</strong> Dengan berkat Tuhan, kami memutuskan untuk mengikat janji suci dan bersatu di hadapan Altar Kudus-Nya.</p>
             </div>
         </section>
@@ -294,25 +333,50 @@
         </section>
 
         <section>
-            <div class="judul-script" data-aos="fade-up">Tanda Kasih</div>
-            
-            <div style="max-width: 350px; margin: 0 auto 25px; font-size: 13px; line-height: 1.6; opacity: 0.9;" data-aos="fade-up">
-                <p>Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih, dapat melalui saluran di bawah ini.</p>
-                <p style="font-style: italic;">Sebelumnya, doa dan kehadiran Anda sudah merupakan hadiah yang sangat berarti bagi kami. Tidak ada paksaan atau keharusan dalam bentuk apa pun.</p>
-            </div>
+    <div class="judul-script" data-aos="fade-up" style="font-size: 80px; margin-bottom: 10px;">Tanda Kasih</div>
+    
+    <div style="max-width: 350px; margin: 0 auto 25px; font-size: 13px; line-height: 1.6; opacity: 0.9; padding: 0 15px;" data-aos="fade-up">
+        <p>Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih, dapat melalui saluran di bawah ini.</p>
+        <p style="font-style: italic; opacity: 0.8;">Sebelumnya, doa dan kehadiran Anda sudah merupakan hadiah yang sangat berarti bagi kami.</p>
+    </div>
 
-            <div style="background: var(--ivory); color: var(--dark-maroon); padding: 25px; border-radius: 15px; display: inline-block; box-shadow: var(--shadow); width: 80%; max-width: 320px; margin-bottom: 15px;" data-aos="zoom-in">
-                <strong style="letter-spacing: 2px; font-size: 16px;">BANK MANDIRI</strong><br>
-                <span style="font-size: 20px; font-weight: bold; display: block; margin: 5px 0;">1460016386497</span>
-                <span style="font-size: 14px;">a/n MARKURIUS ANDI</span>
-            </div>
+    <div style="background: var(--ivory); color: var(--dark-maroon); padding: 25px; border-radius: 15px; display: inline-block; box-shadow: var(--shadow); width: 85%; max-width: 320px; margin-bottom: 15px; border: 1px solid var(--gold-accent);" data-aos="zoom-in">
+        <strong style="letter-spacing: 2px; font-size: 16px;">BANK MANDIRI</strong><br>
+        <span style="font-size: 20px; font-weight: bold; display: block; margin: 5px 0; color: #000;">1460016386497</span>
+        <span style="font-size: 14px; display: block; margin-bottom: 15px;">a/n MARKURIUS ANDI</span>
+        
+        <button onclick="salinNorek('1460016386497')" style="background: var(--maroon); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            <span style="font-size: 20px;">📋</span>
+        </button>
+    </div>
 
-            <div style="background: var(--ivory); color: var(--dark-maroon); padding: 25px; border-radius: 15px; display: inline-block; box-shadow: var(--shadow); width: 80%; max-width: 320px;" data-aos="zoom-in">
-                <strong style="letter-spacing: 2px; font-size: 16px;">BANK MANDIRI</strong><br>
-                <span style="font-size: 20px; font-weight: bold; display: block; margin: 5px 0;">1460019574594</span>
-                <span style="font-size: 14px;">a/n NATASYA GERAENI BARANGO</span>
-            </div>
-        </section>
+    <div style="background: var(--ivory); color: var(--dark-maroon); padding: 25px; border-radius: 15px; display: inline-block; box-shadow: var(--shadow); width: 85%; max-width: 320px; border: 1px solid var(--gold-accent);" data-aos="zoom-in">
+        <strong style="letter-spacing: 2px; font-size: 16px;">BANK MANDIRI</strong><br>
+        <span style="font-size: 20px; font-weight: bold; display: block; margin: 5px 0; color: #000;">1460019574594</span>
+        <span style="font-size: 14px; display: block; margin-bottom: 15px;">a/n NATASYA GERAENI BARANGO</span>
+        
+        <button onclick="salinNorek('1460019574594')" style="background: var(--maroon); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            <span style="font-size: 20px;">📋</span>
+        </button>
+    </div>
+</section>
+
+<script>
+function salinNorek(nomor) {
+    navigator.clipboard.writeText(nomor).then(function() {
+        alert("Nomor rekening " + nomor + " berhasil disalin!");
+    }, function(err) {
+        // Backup jika navigator.clipboard gagal
+        const el = document.createElement('textarea');
+        el.value = nomor;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert("Nomor rekening berhasil disalin!");
+    });
+}
+</script>
 
         <section style="background: rgba(0,0,0,0.45); padding: 50px 20px; text-align: center; color: white;">
     <div style="font-style: italic; max-width: 320px; margin: 0 auto 40px;" data-aos="fade-up">
@@ -338,9 +402,9 @@
 </section>
 
 <script>
-    // FIX: Link sudah diperbaiki (tidak hhttps lagi)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyyQUU6vBJP9k89HMBLJ-qtF99ZbAnPOBjXXVNEGDcUCRZX6W9SR-5GXE4tnmp-_Ue18w/exec';
 
+    // 1. Fungsi Kirim Ucapan
     function kirimUcapan() {
         const nama = document.getElementById('nama').value;
         const ucapan = document.getElementById('ucapan').value;
@@ -379,12 +443,15 @@
         });
     }
 
-    // Ambil data otomatis saat web dibuka
-    window.addEventListener('load', function() {
+    // 2. Fungsi Ambil Data (Dijadikan satu agar tidak bentrok)
+    function muatUcapan() {
         const daftar = document.getElementById('daftarUcapan');
         
         fetch(scriptURL, { redirect: "follow" })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
             .then(data => {
                 daftar.innerHTML = ""; 
                 
@@ -406,7 +473,10 @@
                 console.error("Gagal memuat:", err);
                 daftar.innerHTML = '<p style="text-align: center; font-size: 12px; opacity: 0.5;">Gagal memuat ucapan. Refresh atau cek koneksi.</p>';
             });
-    });
+    }
+
+    // Panggil fungsi muat data saat halaman selesai loading
+    window.addEventListener('load', muatUcapan);
 </script>
     </div>
 
